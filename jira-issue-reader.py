@@ -1,25 +1,51 @@
 import streamlit as st
 import requests
+from requests.auth import HTTPBasicAuth
+from neo4j import GraphDatabase
+from dataIngester import DataIngester
 
-# Jira server URL, API token and USER
-JIRA_BASE_URL = "https://biosustain-dev.atlassian.net/jira"
-API_TOKEN = "ATATT3xFfGF03YAmMcNMmpBQpW_ngTT_fkltfVQtRCiXGOFJYQCerT72u8DMRBk7izmnMBJ3vTADxH-bZDP1kMR_fOH1M0pfxuh3HeT71ZNyBhAn7HXfINwhx2i7iaB-5kvLvpgcHauJec_WsyERUYmfv8IN7BuwvCkIIh2cK7d57sNlhjGhwyk=94B2E4D3"
-USER = 'dinghe@biosustain.dtu.dk'
+# initiate Neo4j data ingester
+uri = "bolt://10.75.0.78:7687"
+username = "neo4j"
+password = "rEV6UgEk9PiVGE"
+neo4j_dataIngester = DataIngester(uri, username, password)
+
+# Jira access credential
+API_TOKEN = "ATATT3xFfGF0AZYY7Lr8oRZj53hkX6zM8Xr_87V4vG3SKRAWrMAxePlNB23AvpbGGoLiF7zE6frC7dfPtAXuNvAYI1rcNvBC-CE9E94k67i9nzgCDzvjbHwcog880GL11FDi5-Zm3g4RSWb69IEqKuzhfmLbMYSZpBtIxy7N_jelMOCbzWqtXcc=D69A42DD"
+USER = "dinghe@biosustain.dtu.dk"
 
 st.title("Jira Issue Viewer")
 
-# Example JQL query (replace with your own)
-jql_query = "assignee = currentUser() AND resolution = Unresolved order by updated DESC"
+# Jira API URL
+url = "https://biosustain-dev.atlassian.net/rest/api/3/search"
+# auth
+auth = HTTPBasicAuth(USER, API_TOKEN)
 
-# Construct the API URL
-api_url = f"{JIRA_BASE_URL}/rest/api/2/search?jql={jql_query}"
+headers = {
+  "Accept": "application/json"
+}
+
+query = {
+  'jql': 'project = DCCP',
+  # does not seeem to work
+  'maxResults': 1000
+}
 
 try:
-    response = requests.get(api_url, auth=(USER, API_TOKEN))
+    response = requests.request("GET", url, headers=headers,params=query,auth=auth)
     if response.status_code == 200:
         data = response.json()
         for issue in data.get("issues", []):
-            st.write(f"Issue Key: {issue['key']}, Summary: {issue['fields']['summary']}")
+            issue_key = issue['key']
+            summary = issue['fields']['summary']
+            try: 
+                assignee = issue['fields']['assignee']['displayName']
+            except:
+                assignee = issue['fields']['assignee']
+            status = issue['fields']['status']['name']
+            st.write(f"Issue Key: {issue_key}, Summary: {summary}, Assignee: {assignee}, Status: {status}")
+            neo4j_node_properties = {'issue_key':issue_key, 'summary':summary, 'assignee':assignee, 'status':status}
+            neo4j_dataIngester.create_node("JiraTicket", neo4j_node_properties)
     else:
         st.write(f"Error fetching issues. Status code: {response.status_code}")
 except requests.RequestException as e:
