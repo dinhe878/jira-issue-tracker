@@ -7,11 +7,11 @@ from dataIngester import DataIngester
 # initiate Neo4j data ingester
 uri = "bolt://10.75.0.78:7687"
 username = "neo4j"
-password = "rEV6UgEk9PiVGE"
+password = ""
 neo4j_dataIngester = DataIngester(uri, username, password)
 
 # Jira access credential
-API_TOKEN = "ATATT3xFfGF0AZYY7Lr8oRZj53hkX6zM8Xr_87V4vG3SKRAWrMAxePlNB23AvpbGGoLiF7zE6frC7dfPtAXuNvAYI1rcNvBC-CE9E94k67i9nzgCDzvjbHwcog880GL11FDi5-Zm3g4RSWb69IEqKuzhfmLbMYSZpBtIxy7N_jelMOCbzWqtXcc=D69A42DD"
+API_TOKEN = ""
 USER = "dinghe@biosustain.dtu.dk"
 
 st.title("Jira Issue Viewer")
