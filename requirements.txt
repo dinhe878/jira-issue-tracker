@@ -1,2 +1,2 @@
 streamlit>=1.26.0
-streamlit_oauth
+streamlit_oauth==0.1.8
