@@ -18,6 +18,7 @@ REDIRECT_URI = "https://jira-issue-tracker-rjpdatbhvj8dmhbbfcrinv.streamlit.app/
 #REDIRECT_URI = "http://localhost:8502"
 SCOPE = "read:jira-work"
 
+st.write(st.secrets)
 oauth2 = OAuth2Component(CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_URL, TOKEN_URL, TOKEN_URL, REVOKE_URL)
 
 # Check if token exists in session state
