@@ -30,22 +30,23 @@ else:
     # If token exists in session state, show the token
     token = st.session_state['token']
     st.json(token)
-    
+
     # Use the token to get Jira issues
     PROJECT_KEY = "DCCP"
     HEADERS = {'Authorization': f'Bearer {token}',
             'Accept': 'application/json'}
     jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
-    response = requests.request("GET", f'https://{jira_api_server}/rest/api/2/search?jql=project={PROJECT_KEY}', headers=HEADERS)
+    response = requests.request("GET", jira_api_server, headers=HEADERS)
+    st.json(response)
 
-    # Get the JSON response body
-    if response.status_code == 200:
-        issues = response.json()
-        # Print each issue key and summary
-        for issue in issues['issues']:
-            print(f"{issue['key']}: {issue['fields']['summary']}")
-        else:
-            print(f"Error: {response.status_code} - {response.text}")
+    # # Get the JSON response body
+    # if response.status_code == 200:
+    #     issues = response.json()
+    #     # Print each issue key and summary
+    #     for issue in issues['issues']:
+    #         print(f"{issue['key']}: {issue['fields']['summary']}")
+    #     else:
+    #         print(f"Error: {response.status_code} - {response.text}")
 
     if st.button("Refresh Token"):
         # If refresh token button is clicked, refresh the token
