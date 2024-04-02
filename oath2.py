@@ -44,7 +44,7 @@ PROJECT_KEY = "DCCP"
 HEADERS = {'Accept': 'application/json',
            'Authorization': 'Bearer ACCESS_TOKEN'}
 jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
-response = requests.get(f'https://{jira_server}/rest/api/2/search?jql=project=PROJECT_KEY', headers=HEADERS)
+response = requests.get(f'https://{jira_api_server}/rest/api/2/search?jql=project=PROJECT_KEY', headers=HEADERS)
 
 # Get the JSON response body
 issues = response.json()
