@@ -11,7 +11,7 @@ TOKEN_URL = "https://auth.atlassian.com/oauth/token"
 REVOKE_URL = ""
 CLIENT_ID = st.secrets["CLIENT_ID"]
 CLIENT_SECRET = st.secrets["SECRET"]
-REDIRECT_URI = "https://jira-issue-tracker-ejvrmzicbw58u2aqsnckn8.streamlit.app/"
+REDIRECT_URI = "https://jira-issue-tracker-rjpdatbhvj8dmhbbfcrinv.streamlit.app/"
 # For local testing
 #CLIENT_ID = os.getenv("CLIENT_ID")
 #CLIENT_SECRET = os.getenv("SECRET")
