@@ -31,10 +31,9 @@ else:
     token = st.session_state['token']
     st.json(token)
 
-    # Use the token to get Jira issues
-    PROJECT_KEY = "DCCP"
-    HEADERS = {'Authorization': f'Bearer {token}',
-            'Accept': 'application/json'}
+    # Use the token to get cloudid
+    HEADERS = {f'Authorization: Bearer {token}',
+            'Accept: application/json'}
     jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
     response = requests.request("GET", jira_api_server, headers=HEADERS)
     if response.status_code == 200:
