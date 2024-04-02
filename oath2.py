@@ -32,8 +32,8 @@ else:
     st.json(token)
 
     # Use the token to get cloudid
-    HEADERS = {f'Authorization: Bearer {token}',
-            'Accept: application/json'}
+    HEADERS = {'Authorization': f'Bearer {token}',
+            'Accept': 'application/json'}
     jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
     response = requests.request("GET", jira_api_server, headers=HEADERS)
     if response.status_code == 200:
@@ -41,6 +41,8 @@ else:
         data = response.json()
         st.write(data)  # You can process the data as needed
     else:
+        data = response.json()
+        st.write(data)
         st.write(f"Error: {response.status_code} - {response.text}")
 
     # # Get the JSON response body
