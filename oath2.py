@@ -3,6 +3,7 @@ import requests, webbrowser
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 
+st.write('Hello!')
 """ # Your client credentials
 client_id = 'client_id'
 client_secret = 'client_secret'
@@ -26,11 +27,11 @@ for issue in issues['issues']:
     print(f"{issue['key']}: {issue['fields']['summary']}")
  """
 
-url = 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=ncXG3wFdYgzhibpX64G7nM9xhh9DxSMS&scope=read%3Ajira-work&redirect_uri=https%3A%2F%2Fjira-issue-tracker-mcuw6k6su7gzqyn5hnyex3.streamlit.app%2F&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent'
+""" url = 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=ncXG3wFdYgzhibpX64G7nM9xhh9DxSMS&scope=read%3Ajira-work&redirect_uri=https%3A%2F%2Fjira-issue-tracker-mcuw6k6su7gzqyn5hnyex3.streamlit.app%2F&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent'
 webbrowser.open_new(url)
 headers = {'Content-Type': 'application/json'}
 response = requests.get(url, headers=headers)
-print(response.json())
+print(response.json()) """
 
 """ # Define the URL and the headers
 url = 'https://auth.atlassian.com/oauth/token'
