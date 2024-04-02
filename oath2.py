@@ -1,11 +1,10 @@
 import streamlit as st
 import requests, webbrowser, os
 from dotenv import load_dotenv
-
-load_dotenv()  # take environment variables from .env.
-
-
 from streamlit_oauth import OAuth2Component
+
+# For local testing
+#load_dotenv()  # take environment variables from .env.
 
 AUTHORIZATION_URL = "https://auth.atlassian.com/authorize"
 TOKEN_URL = "https://auth.atlassian.com/oauth/token"
