@@ -41,18 +41,20 @@ else:
 
 # Use the token to get Jira issues
 PROJECT_KEY = "DCCP"
-HEADERS = {'Accept': 'application/json',
-           'Authorization': 'Bearer ACCESS_TOKEN'}
+HEADERS = {'Authorization': f'Bearer {token}',
+           'Accept': 'application/json'}
 jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
 response = requests.get(f'https://{jira_api_server}/rest/api/2/search?jql=project={PROJECT_KEY}', headers=HEADERS)
 
 # Get the JSON response body
-issues = response.json()
+if response.status_code == 200:
+   issues = response.json()
+   # Print each issue key and summary
+   for issue in issues['issues']:
+      print(f"{issue['key']}: {issue['fields']['summary']}")
+else:
+    print(f"Error: {response.status_code} - {response.text}")
 
-# Print each issue key and summary
-for issue in issues['issues']:
-   print(f"{issue['key']}: {issue['fields']['summary']}")
- 
 # """
 # [Login](https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=ncXG3wFdYgzhibpX64G7nM9xhh9DxSMS&scope=read%3Ajira-work&redirect_uri=http%3A%2F%2Flocalhost%3A8502%2F&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent)
 # url = 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=ncXG3wFdYgzhibpX64G7nM9xhh9DxSMS&scope=read%3Ajira-work&redirect_uri=https%3A%2F%2Fjira-issue-tracker-mcuw6k6su7gzqyn5hnyex3.streamlit.app%2F&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent'
