@@ -37,7 +37,7 @@ else:
             'Accept': 'application/json'}
     jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
     response = requests.request("GET", jira_api_server, headers=HEADERS)
-    st.json(response)
+    st.write(response)
 
     # # Get the JSON response body
     # if response.status_code == 200:
