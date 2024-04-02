@@ -1,7 +1,6 @@
 import streamlit as st
 import requests, webbrowser
-#from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib import OAuth2Session
+from streamlit_oauth import OAuth2Component
 
 """ # Your client credentials
 client_id = 'client_id'
