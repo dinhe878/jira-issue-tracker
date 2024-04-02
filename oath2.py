@@ -18,7 +18,6 @@ REDIRECT_URI = "https://jira-issue-tracker-rjpdatbhvj8dmhbbfcrinv.streamlit.app/
 #REDIRECT_URI = "http://localhost:8502"
 SCOPE = "read:jira-work"
 
-st.write(st.secrets)
 oauth2 = OAuth2Component(CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_URL, TOKEN_URL, TOKEN_URL, REVOKE_URL)
 
 # Check if token exists in session state
@@ -27,20 +26,18 @@ if 'token' not in st.session_state:
   if result:
     st.session_state.token = result.get('token')
     st.rerun()
-
+else:
+    # If token exists in session state, show the token
+    token = st.session_state['token']
+    st.json(token)
+    if st.button("Refresh Token"):
+        # If refresh token button is clicked, refresh the token
+        token = oauth2.refresh_token(token)
+        st.session_state.token = token
+        st.rerun()
+        
 # For local testing
 #print(st.session_state)
-
-# # Your client credentials
-# client_id = 'client_id'
-# client_secret = 'client_secret'
-
-# # Create a session
-# client = BackendApplicationClient(client_id=client_id)
-# oauth = OAuth2Session(client=client)
-
-# # Get token
-# token = oauth.fetch_token(token_url='https://your-jira-server.atlassian.net/oauth/token', client_id=client_id, client_secret=client_secret)
 
 # # Use the token
 # jira_server = 'jira_server'
