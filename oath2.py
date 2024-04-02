@@ -33,9 +33,9 @@ else:
 
     # Use the token to get cloudid
     HEADERS = {'Authorization': f'Bearer {token}',
-            'Accept': 'application/json'}
+               'Accept': 'application/json'}
     jira_api_server = 'https://api.atlassian.com/oauth/token/accessible-resources'
-    response = requests.get(jira_api_server, headers=HEADERS)
+    response = requests.get(url=jira_api_server, headers=HEADERS)
     if response.status_code == 200:
         # Parse the JSON response
         data = response.json()
