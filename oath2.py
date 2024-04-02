@@ -40,6 +40,7 @@ else:
         # Parse the JSON response
         data = response.json()
         st.write(data)  # You can process the data as needed
+        st.write("success!")
     else:
         st.write(f"Error: {response.status_code} - {response.text}")
 
