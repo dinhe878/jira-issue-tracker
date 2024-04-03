@@ -11,8 +11,8 @@ jira = Jira(
     # For local testing
     #username=os.getenv("USER_NAME"),
     #password=os.getenv("API_TOKEN"),
-    username=st.secrets("USER_NAME"),
-    password=st.secrets("API_TOKEN"),
+    username=st.secrets["USER_NAME"],
+    password=st.secrets["API_TOKEN"],
     cloud=True)
 
 issue_count = 0
