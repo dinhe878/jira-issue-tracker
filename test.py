@@ -1,18 +1,18 @@
 import streamlit as st
 import requests, os
-# For local testing
-#from dotenv import load_dotenv
 from atlassian import Jira
+# For local testing
+from dotenv import load_dotenv
 
 # For local testing
-#load_dotenv()  # take environment variables from .env.
+load_dotenv()  # take environment variables from .env.
 jira = Jira(
     url='https://biosustain-dev.atlassian.net',
     # For local testing
-    #username=os.getenv("USER_NAME"),
-    #password=os.getenv("API_TOKEN"),
-    username=st.secrets["USER_NAME"],
-    password=st.secrets["API_TOKEN"],
+    username=os.getenv("USER_NAME"),
+    password=os.getenv("API_TOKEN"),
+    #username=st.secrets["USER_NAME"],
+    #password=st.secrets["API_TOKEN"],
     cloud=True)
 
 issue_count = 0

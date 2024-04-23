@@ -1,4 +1,8 @@
 from neo4j import GraphDatabase
+import os
+# For local testing
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
 
 class DataIngester:
     def __init__(self, uri, user, password):
@@ -20,10 +24,12 @@ class DataIngester:
             )
             session.run(query, prop1=property1, prop2=property2)
 
+
 if __name__ == "__main__":
     uri = "bolt://10.75.0.78:7687"
     username = "neo4j"
-    password = "rEV6UgEk9PiVGE"
+    password = password=os.getenv("neo4j_db_password")
+
 
     ingester = DataIngester(uri, username, password)
 
